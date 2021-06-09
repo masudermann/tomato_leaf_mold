@@ -57,7 +57,6 @@ for(i in 1:(d-1)){
 rownames(IBS_matrix) <- indvs
 colnames(IBS_matrix) <- indvs
 write.csv(IBS_matrix, "IBS_matrix6_5.csv")
-
 ```
 
 Load IBS matrix. Visualize histogram of IBS matrix results. If bimodal, select appropriate cutoff value, based on the location of the second peak. In this case, it is close to 0.99. This value is used in the next step. 
