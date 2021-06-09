@@ -71,7 +71,7 @@ hist(IBS_matrix, breaks=100)
 Assign individuals to clonal groups. 
 ```{r, eval=TRUE, include=TRUE}
 modify_matrix <- function(x){
-  if(is.na(x) | x<.999){
+  if(is.na(x) | x<.99){
     return(0)
   }else{
     
