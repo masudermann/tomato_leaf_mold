@@ -2,7 +2,8 @@
 title: "Analysis of GBS data"
 output: html_document
 ---
-Code is partially adapted from tutorials within https://grunwaldlab.github.io/Population_Genetics_in_R/index.html. Cited publications within the tutorial were also referenced, in addition to publicly available scripts on the Grunwald Lab Github page. A csv file is also needed with metadataa on each isolate, including sample names, location, latitude and longitude, and any other metadata that is of interest in the analysis. 
+Code is partially adapted from tutorials within https://grunwaldlab.github.io/Population_Genetics_in_R/index.html. Cited publications within the tutorial were also referenced.
+A CSV file is also needed with metadata on each isolate, including sample names, location, latitude and longitude coordinates for the map, and any other metadata that is of interest in the analysis. 
 
 ```{r, eval=TRUE, include=FALSE}
 knitr::opts_knit$set(root.dir = '~/gbstlm/output')
