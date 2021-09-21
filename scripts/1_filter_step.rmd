@@ -2,7 +2,7 @@
 title: "Filtering data after variant calling analyses"
 ---
 
-Code is adapted from tutorials from https://grunwaldlab.github.io/Population_Genetics_in_R/index.html. Cited publications within the tutorial were also referenced. The input file is a vcf file obtained from one's preferred variant caller of choice. 
+Code is adapted from tutorials from https://grunwaldlab.github.io/Population_Genetics_in_R/index.html. The input file is a vcf file obtained from one's preferred variant caller of choice. The unfiltered vcf file is in the 'data' folder. 
 
 ```{r, eval=TRUE, include=FALSE}
 knitr::opts_knit$set(root.dir = '~/gbstlm/output')
