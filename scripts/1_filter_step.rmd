@@ -6,7 +6,6 @@ Code is adapted from tutorials from https://grunwaldlab.github.io/Population_Gen
 'data' folder. 
 
 ```{r, eval=TRUE, include=FALSE}
-knitr::opts_knit$set(root.dir = '~/gbstlm/output')
 library(reshape2)
 library(ggplot2) 
 library(cowplot)
