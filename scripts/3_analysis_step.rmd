@@ -70,17 +70,6 @@ legend('bottomright',legend = c("MA","MN","NH","NY", "VT"), fill = cols, border 
 dev.off()
 ```
 
-Neighbor joining tree-circular
-```{r, eval=TRUE, include=TRUE,fig.height=4}
-library(ape)
-tiff("njprevcirc44.tiff", units="in", width=8, height=8, res = 600)
-tre <- nj(prevosti.dist(as.matrix(gbs.pass)))
-tre
-plot(tre, typ="fan", cex=1, tip.color =cols[pop(gbs.pass)])
-legend('topright',legend = c("MA","MN","NH","NY", "VT"), fill = cols, border = FALSE, bty = "n", cex = 1)
-dev.off()
-```
-
 Principal Component Analysis with clone-corrected dataset
 ```{r, eval=TRUE, include=TRUE}
 #pop(gi.pass)<-data.set$Region
