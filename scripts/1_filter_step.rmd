@@ -130,7 +130,7 @@ pass.vcf
 write.vcf(pass.vcf, file = "filteredpfulva.vcf.gz")
 ```
 
-Obtain information about % missing data for each sample. This is useful for determining which of the technical replicates to retain or disgard in the final analysis
+Obtain information about % missing data for each sample. This is useful for determining which of the technical replicates to retain or discard in the final analysis
 ```{r, eval=TRUE, include=TRUE}
 myMiss <- apply(dp, MARGIN = 2, function(x){ sum(is.na(x)) })
 myMiss <- myMiss/nrow(pass.vcf)
