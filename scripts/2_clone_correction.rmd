@@ -1,25 +1,16 @@
 ---
 title: "Clone correction using pairwise identity by state analysis"
 ---
-This script takes a 012 formatted file (output from VCFtools) and creates and pairwise IBS similarity matrix. 
-For use in identifying which isolates contain unique genotypes.
-Script was modified with permission from the publicly available scripts from Vogel et al. 2020-"Genome-wide association study in New York Phytophthora capsici isolates reveals loci involved in mating type and mefenoxam sensitivity", located on Github: https://github.com/gmv23/pcap-gwas).
+This script takes a 012 formatted file (input: filtered vcf). This was done using VCFtools.  A pairwise IBS similarity matrix is produced, which is used to identify which isolates have unique genotypes.
+
+The script was modified with permission from Vogel et al. 2020-"Genome-wide association study in New York Phytophthora capsici isolates reveals loci involved in mating type and mefenoxam sensitivity", located on Github: https://github.com/gmv23/pcap-gwas).
 
 ```{r, eval=TRUE, include=FALSE}
-knitr::opts_knit$set(root.dir = '~/gbstlm/output')
 library(igraph)
 library(vcfR)
-library(poppr)
-library(ape)
-library(ggplot2)
-library(RColorBrewer)
-library(gdata)
-library(phangorn)
-library(adegenet)
-library(agricolae)
 ```
 
-Load 012 FILES (Obtained from Vcftools 012 output)
+Load 012 FILES (obtained from Vcftools 012 output. Input was the filtered vcf file)
 ```{r, eval=TRUE, include=TRUE}
 snps <- read.table("~/6_5.012.pos")
 indvs <- read.table("~/6_5.012.indv", stringsAsFactors = F)
