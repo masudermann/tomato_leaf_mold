@@ -2,7 +2,8 @@
 title: "Filtering data after variant calling analyses"
 ---
 
-Code is adapted from tutorials from https://grunwaldlab.github.io/Population_Genetics_in_R/index.html. The input file is a vcf file obtained from one's preferred variant caller of choice. The unfiltered vcf file is in the 'data' folder. 
+Code is adapted from tutorials from https://grunwaldlab.github.io/Population_Genetics_in_R/index.html.The unfiltered vcf file is in the
+'data' folder. 
 
 ```{r, eval=TRUE, include=FALSE}
 knitr::opts_knit$set(root.dir = '~/gbstlm/output')
@@ -17,7 +18,7 @@ library(gdata)
 ```
 Visualization of read depth
 ```{r, eval=TRUE, include=TRUE}
-pass.vcf = read.vcfR("~/gbstlm/output/passalora_4_2.vcf")
+pass.vcf = read.vcfR("passalora_4_2.vcf")
 dp <- extract.gt(pass.vcf, element = "DP", as.numeric=TRUE)
 dpf <- melt(dp, varnames=c('Index', 'Sample'), value.name = 'Depth', na.rm=TRUE)
 dpf <- dpf[ dpf$Depth > 0,]
@@ -130,7 +131,7 @@ pass.vcf
 write.vcf(pass.vcf, file = "filteredpfulva.vcf.gz")
 ```
 
-Obtain information about % missing data for each sample. This is useful for determing which of the technical replicates to retain or disgard in the final analysis
+Obtain information about % missing data for each sample. This is useful for determining which of the technical replicates to retain or disgard in the final analysis
 ```{r, eval=TRUE, include=TRUE}
 myMiss <- apply(dp, MARGIN = 2, function(x){ sum(is.na(x)) })
 myMiss <- myMiss/nrow(pass.vcf)
