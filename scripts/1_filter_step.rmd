@@ -14,6 +14,7 @@ library(ape)
 library(RColorBrewer)
 library(gdata)
 ```
+
 Visualization of read depth
 ```{r, eval=TRUE, include=TRUE}
 pass.vcf = read.vcfR("passalora_4_2.vcf")
@@ -61,6 +62,7 @@ dp[dp > 100] <- NA
 pass.vcf@gt[,-1][ is.na(dp) == TRUE ] <- NA
 pass.vcf
 ```
+
 Omitting samples based on percentage of missing data
 ```{r, eval=TRUE, include=TRUE}
 myMiss <- apply(dp, MARGIN = 2, function(x){ sum( is.na(x) ) } )
@@ -70,6 +72,7 @@ dp <- extract.gt(pass.vcf, element = "DP", as.numeric=TRUE)
 heatmap.bp(dp[1:1000,], rlabels = FALSE)
 pass.vcf
 ```
+
 Omitting variants
 ```{r, eval=TRUE, include=TRUE}
 dp <- extract.gt(pass.vcf, element = "DP", as.numeric=TRUE)
@@ -78,6 +81,7 @@ myMiss <- myMiss / ncol(dp)
 hist(myMiss, col = "#8DD3C7", xlab = "Missingness (%)")
 pass.vcf <- pass.vcf[myMiss < 0.2, ]
 ```
+
 Visualizing filtered data
 ```{r, eval=TRUE, include=TRUE}
 dp <- extract.gt(pass.vcf, element = "DP", as.numeric=TRUE)
@@ -99,6 +103,7 @@ p <- p + theme(panel.grid.minor.y = element_line(color = "#C0C0C0", size = 0.2))
 p <- p + ylab("Depth (DP)")
 p
 ```
+
 Retain only non-heterozygous positions, as well as biallelic and polymorphic positions
 ```{r, eval=TRUE, include=TRUE}
 #Remove heterozygous positions
@@ -113,6 +118,7 @@ pass.vcf <- pass.vcf[is.biallelic(pass.vcf)]
 pass.vcf <- pass.vcf[is.polymorphic(pass.vcf, na.omit = T),]
 pass.vcf
 ```
+
 Filtering by minor allele frequency
 ```{r, eval=TRUE, include=TRUE}
 mymaf <- maf(pass.vcf, element = 2)
