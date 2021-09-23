@@ -2,8 +2,7 @@
 title: "Filtering data after variant calling analyses"
 ---
 
-Code is adapted from tutorials from https://grunwaldlab.github.io/Population_Genetics_in_R/index.html.The unfiltered vcf file is in the
-'data' folder. 
+The Population Genetics and Genomics in R Primer (https://grunwaldlab.github.io/Population_Genetics_in_R/index.html) was referenced. The unfiltered VCF file and metadata table are also available.  
 
 ```{r, eval=TRUE, include=FALSE}
 library(reshape2)
