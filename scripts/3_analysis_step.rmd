@@ -2,7 +2,7 @@
 title: "Analysis of GBS data"
 output: html_document
 ---
-*Population Genetics in R Handbook* was referenced (https://grunwaldlab.github.io/Population_Genetics_in_R/index.html). 
+Population Genetics in R Handbook was referenced (https://grunwaldlab.github.io/Population_Genetics_in_R/index.html). 
 A CSV file is also needed with data on each isolate, including sample names, location, latitude and longitude coordinates for the map, and any other data that is of interest in the analysis. 
 
 ```{r, eval=TRUE, include=FALSE}
