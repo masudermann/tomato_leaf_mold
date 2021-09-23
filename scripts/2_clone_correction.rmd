@@ -114,6 +114,7 @@ clone_assignments <- clone_assignments[-1,]
 clone_assignments <- as.data.frame(clone_assignments, stringsAsFactors = F)
 clone_assignments$Clonal_group <- as.integer(clone_assignments$Clonal_group)
 
+
 write.table(clone_assignments, "pfulvacc.txt", row.names = F, quote=F, sep="\t")
 ```
 
