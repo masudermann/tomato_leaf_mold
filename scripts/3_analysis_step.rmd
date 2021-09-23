@@ -2,8 +2,8 @@
 title: "Analysis of GBS data"
 output: html_document
 ---
-Population Genetics in R Handbook was referenced (https://grunwaldlab.github.io/Population_Genetics_in_R/index.html). 
-A CSV file is also needed with data on each isolate, including sample names, location, latitude and longitude coordinates for the map, and any other data that is of interest in the analysis. 
+*Population genetics and genomics in R primer* was referenced (https://grunwaldlab.github.io/Population_Genetics_in_R/index.html). 
+A CSV file is also needed with data on each isolate, including sample names, location, latitude and longitude coordinates for the map, and any other data that is of interest in the analysis.A Newick tree input is also needed to visualize the Maximum likelihood tree. 
 
 ```{r, eval=TRUE, include=FALSE}
 library(devtools)
@@ -44,7 +44,7 @@ metadata <- read.csv("~/Data_and_metadata/info2.csv")
 metadata <- metadata[match(indNames(gbs.pass), metadata$AccessID), ]
 pop(gbs.pass) <- metadata$State
 
-#load sample info for clone-corrected metadataset
+#load sample info for clone-corrected dataset
 metadatacc <- read.csv("~/Data_and_metadata/info2.csv")
 metadatacc <- metadatacc[match(indNames(gbscc.pass), metadatacc$AccessID), ]
 pop(gbscc.pass) <- metadatacc$State
@@ -58,32 +58,27 @@ pop(gbscc2.pass) <- metadatacc2$State
 
 Neighbor Joining Tree
 ```{r, eval=TRUE, include=TRUE}
-#nj tree
-tiff("nj1000.tiff", units="in", width=10, height=6, res = 600)
 set.seed(9)
-tree <- aboot(gbs.pass, tree = "nj", distance = bitwise.dist, showtree = T, sample = 1000, cutoff = 50, quiet = T, root=TRUE)
+tree <- aboot(gbs.pass, tree = "nj", distance = bitwise.dist, showtree = F, sample = 1000, cutoff = 50, quiet = T, root=TRUE)
 cols <- brewer.pal(n = nPop(gbs.pass), name = "Dark2")
 plot.phylo(tree, cex = 0.62, font = 2, adj = 0.5, tip.color =cols[pop(gbs.pass)])
 nodelabels(tree$node.label, adj = c(1.5, -0.5), frame = "n", cex = 0.4,font = 2, xpd = TRUE)
 legend('bottomright',legend = c("MA","MN","NH","NY", "VT"), fill = cols, border = FALSE, bty = "n", cex = 1)
-dev.off()
 ```
 
 Maximum-likelihood tree
 ```{r, eval=TRUE, include=TRUE,fig.height=4}
 #A Newick tree file must be imported from IQ-tree 
 iqtree<-read.tree("~/filteredpfulvanodup.phy.treefile")
-tiff("mltree_pfulva.tiff", units="in", width=8, height=8, res = 600)
 gg <- ggtree(iqtree)
 gg <- gg %<+% metadata
 gg <- gg + geom_tippoint(aes(color = factor(`State`)), size=2)
 gg <- gg +geom_tiplab(size=2.5, offset = 0.003)
 gg <- gg + scale_colour_manual(name="State",values = c("#1B9E77", "#D95F02", "#7570B3","#E7298A" , "#66A61E"))
 gg
-dev.off()
 ```
 
-Principal Component Analysis with clone-corrected metadataset
+Principal components analysis with clone-corrected data set
 ```{r, eval=TRUE, include=TRUE}
 #pop(gi.pass)<-metadata.set$Region
 pass.pca <- glPca(gbscc.pass, nf = 100)
@@ -108,7 +103,6 @@ pass.pca.scores$count<-metadatacc$count
 var_frac <- pass.pca$eig/sum(pass.pca$eig)
 signif(sum(var_frac[1:3]) * 100, 3)
 
-tiff("pca_1and2.tiff", units="in", width=5, height=4.5, res=600)
 set.seed(9)
 p <- ggplot(pass.pca.scores, aes(x=PC1, y=PC2, colour=pop)) +
     xlab("PC1 (22%)") + ylab("PC2 (15%)")
@@ -119,9 +113,7 @@ p <- p + geom_hline(yintercept = 0)
 p <- p + geom_vline(xintercept = 0) 
 p <- p + theme_bw()
 p
-dev.off()
 
-tiff("pca_1and3.tiff", units="in", width=5, height=4.5, res=600)
 set.seed(9)
 p <- ggplot(pass.pca.scores, aes(x=PC1, y=PC3, colour=pop)) 
 p <- p + geom_point(size=pass.pca.scores$count)
@@ -130,9 +122,7 @@ p <- p + geom_hline(yintercept = 0)
 p <- p + geom_vline(xintercept = 0) 
 p <- p + theme_bw()
 p
-dev.off()
 
-tiff("pca_2and3.tiff", units="in", width=5, height=4.5, res=600)
 set.seed(9)
 p <- ggplot(pass.pca.scores, aes(x=PC2, y=PC3, colour=pop)) 
 p <- p + geom_point(size=pass.pca.scores$count)
@@ -141,10 +131,9 @@ p <- p + geom_hline(yintercept = 0)
 p <- p + geom_vline(xintercept = 0) 
 p <- p + theme_bw()
 p
-dev.off()
 ```
 
-Nei Gst, Hedrick G'st with clone corrected metadataset
+Nei Gst, Hedrick G'st with clone corrected dataset
 ```{r, eval=TRUE, include=TRUE}
 gen.diff <- pairwise_genetic_diff(cleancc, pop(gbscc.pass), method='nei')
 colMeans(gen.diff[c(3:17)], na.rm = T)
@@ -169,9 +158,7 @@ result
 
 Mapping isolates
 ```{r, eval=TRUE, include=TRUE, fig.height=6}
-tiff("map_mas1.tiff", units="in", width=5, height=5, res=600)
 map('state', region= c('new york', 'vermont', 'ohio', 'indiana', 'wisconsin', 'michigan', 'massachusetts', 'new hampshire', 'minnesota', 'iowa', 'illinois', 'penn'),add=FALSE, col='gray90', fill=T) 
   points(metadata$long,metadata$lat, pch=16, col=metadata$color,
   cex=metadata$countmap/2) 
-dev.off()
 ```
