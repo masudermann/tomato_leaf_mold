@@ -14,7 +14,8 @@ library(RColorBrewer)
 library(gdata)
 
 #Visualization of read depth
-pass.vcf = read.vcfR("~/data/passalora_4_2.vcf")
+setwd("~/tomato_leaf_mold/")
+pass.vcf = read.vcfR("data/passalora_4_2.vcf")
 dp <- extract.gt(pass.vcf, element = "DP", as.numeric=TRUE)
 dpf <- melt(dp, varnames=c('Index', 'Sample'), value.name = 'Depth', na.rm=TRUE)
 dpf <- dpf[ dpf$Depth > 0,]
@@ -118,14 +119,14 @@ true_ind <- which(pass.vcf@fix[,3] %in% rownames(mymaf))
 pass.vcf@fix <- pass.vcf@fix[true_ind, ]
 pass.vcf@gt <- pass.vcf@gt[true_ind, ]
 pass.vcf
-write.vcf(pass.vcf, file = "~/data/filteredpfulva.vcf.gz")
+write.vcf(pass.vcf, file = "filteredpfulva.vcf.gz")
 
 #Obtain information about % missing data for each sample. This is useful for determining which of the technical replicates to retain or discard in the final analysis
 myMiss <- apply(dp, MARGIN = 2, function(x){ sum(is.na(x)) })
 myMiss <- myMiss/nrow(pass.vcf)
-write.csv(myMiss, file = "~/data/missingnesspfulva")
+write.csv(myMiss, file = "missingnesspfulva")
 
 #Remove replicate isolates from dataset, based on % missing data
 copy1 = read.vcfR("filteredpfulva.vcf.gz")
 copy1@gt <- copy1@gt[, !colnames(copy1@gt) %in% c("pf78-2", "pf81-2", "pf77", "pf79", "19001-2", "17035", "19016-2", "19018-2", "pf92", "17052-2","19006-2")]
-write.vcf(copy1,file = "~/data/filteredpfulvanodup.vcf.gz")
+write.vcf(copy1,file = "filteredpfulvanodup.vcf.gz")
