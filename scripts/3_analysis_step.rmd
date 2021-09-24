@@ -22,7 +22,8 @@ library(ggtree)
 Preparation-conversion to genlight object
 ```{r, eval=TRUE, include=TRUE}
 # Extracting the genotypes
-clean=read.vcfR("~/data/filteredpfulvanodup.vcf.gz")
+setwd("~/tomato_leaf_mold")
+clean=read.vcfR("data/filteredpfulvanodup.vcf.gz")
 pass.gt <- extract.gt(clean)
 gbs.pass <- vcfR2genlight(clean[is.polymorphic(clean, na.omit = T)])
 gbs.pass
@@ -31,7 +32,7 @@ ploidy(gbs.pass) <- 1
 
 ```{r, eval=TRUE, include=TRUE}
 # Extracting the genotypes for clone corrected dataset
-cleancc=read.vcfR("~/data/cleanclonepfulva.out.vcf.gz")
+cleancc=read.vcfR("data/cleanclonepfulva.out.vcf.gz")
 passcc.gt <- extract.gt(cleancc)
 gbscc.pass <- vcfR2genlight(cleancc[is.polymorphic(cleancc, na.omit = T)])
 gbscc.pass
@@ -40,12 +41,12 @@ ploidy(gbscc.pass) <- 1
 
 ```{r, eval=TRUE, include=TRUE}
 #load sample info
-metadata <- read.csv("~/data/info2.csv")
+metadata <- read.csv("data/info2.csv")
 metadata <- metadata[match(indNames(gbs.pass), metadata$AccessID), ]
 pop(gbs.pass) <- metadata$State
 
 #load sample info for clone-corrected dataset
-metadatacc <- read.csv("~/data/info2.csv")
+metadatacc <- read.csv("data/info2.csv")
 metadatacc <- metadatacc[match(indNames(gbscc.pass), metadatacc$AccessID), ]
 pop(gbscc.pass) <- metadatacc$State
 
@@ -69,7 +70,7 @@ legend('bottomright',legend = c("MA","MN","NH","NY", "VT"), fill = cols, border 
 Maximum-likelihood tree
 ```{r, eval=TRUE, include=TRUE,fig.height=4}
 #A Newick tree file must be imported from IQ-tree 
-iqtree<-read.tree("~/data/filteredpfulvanodup.phy.treefile")
+iqtree<-read.tree("data/filteredpfulvanodup.phy.treefile")
 gg <- ggtree(iqtree)
 gg <- gg %<+% metadata
 gg <- gg + geom_tippoint(aes(color = factor(`State`)), size=2)
