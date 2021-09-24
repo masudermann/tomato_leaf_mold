@@ -1,17 +1,16 @@
 ###Clone correction using pairwise identity by state analysis###
 
 #This script takes a 012 formatted file (input: filtered vcf). This was done using VCFtools.  A pairwise IBS similarity matrix is produced, which is used to identify which isolates have unique genotypes.
-
-#The script was modified with permission from Vogel et al. 2020-"Genome-wide association study in New York Phytophthora capsici isolates reveals loci involved in mating type and mefenoxam sensitivity", located on Github: https://github.com/gmv23/pcap-gwas).
+#The script was modified with permission from Vogel et al. 2020-"Genome-wide association study in New York Phytophthora capsici isolates reveals loci involved in mating type and mefenoxam sensitivity".
 
 library(igraph)
 library(vcfR)
 
 #Load 012 FILES (obtained from Vcftools 012 output. Input was the filtered vcf file)
-snps <- read.table("~/6_5.012.pos")
-indvs <- read.table("~/6_5.012.indv", stringsAsFactors = F)
+snps <- read.table("~/data/012_format/6_5.012.pos")
+indvs <- read.table("~/data/012_format/6_5.012.indv", stringsAsFactors = F)
 indvs <-unlist(indvs$V1)
-geno <- read.table("~/6_5.012")
+geno <- read.table("~/data/012_format/6_5.012")
 print("geno loaded")
 geno <- geno[,-1]
 geno <- t(geno)
@@ -94,11 +93,11 @@ clone_assignments <- clone_assignments[-1,]
 clone_assignments <- as.data.frame(clone_assignments, stringsAsFactors = F)
 clone_assignments$Clonal_group <- as.integer(clone_assignments$Clonal_group)
 
-write.table(clone_assignments, "pfulvacc.txt", row.names = F, quote=F, sep="\t")
+write.table(clone_assignments, "~/data/pfulvacc.txt", row.names = F, quote=F, sep="\t")
 
 #Based on clonal group designations, retain only one isolate from each clonal lineage. Isolate with the least missing data was selected.
-cleanclone = read.vcfR("~/gbstlm/output/filteredpfulva.vcf.gz")
-data.set <- read.csv("~/gbstlm/output/info2.csv")
+cleanclone = read.vcfR("~/data/filteredpfulva.vcf.gz")
+data.set <- read.csv("~/data/info2.csv")
 cleanclone2 <- cleanclone
 cleanclone2@gt <- cleanclone@gt[, colnames(cleanclone@gt) %in% c("FORMAT", "pf76", "18009", "17038", "pf88", "17052", "19014", "18019", "19004", "17043", "18025","19006", "pf82","18010", "18012","18013", "17057","18005", "pf84")]
-write.vcf(cleanclone2,file = "cleanclonepfulva.out.vcf.gz")
+write.vcf(cleanclone2,file = "~/data/cleanclonepfulva.out.vcf.gz")
