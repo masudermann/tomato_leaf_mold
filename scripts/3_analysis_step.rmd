@@ -40,12 +40,12 @@ ploidy(gbscc.pass) <- 1
 
 ```{r, eval=TRUE, include=TRUE}
 #load sample info
-metadata <- read.csv("~/Data_and_metadata/info2.csv")
+metadata <- read.csv("~/data/info2.csv")
 metadata <- metadata[match(indNames(gbs.pass), metadata$AccessID), ]
 pop(gbs.pass) <- metadata$State
 
 #load sample info for clone-corrected dataset
-metadatacc <- read.csv("~/Data_and_metadata/info2.csv")
+metadatacc <- read.csv("~/data/info2.csv")
 metadatacc <- metadatacc[match(indNames(gbscc.pass), metadatacc$AccessID), ]
 pop(gbscc.pass) <- metadatacc$State
 
@@ -69,7 +69,7 @@ legend('bottomright',legend = c("MA","MN","NH","NY", "VT"), fill = cols, border 
 Maximum-likelihood tree
 ```{r, eval=TRUE, include=TRUE,fig.height=4}
 #A Newick tree file must be imported from IQ-tree 
-iqtree<-read.tree("~/filteredpfulvanodup.phy.treefile")
+iqtree<-read.tree("~/data/filteredpfulvanodup.phy.treefile")
 gg <- ggtree(iqtree)
 gg <- gg %<+% metadata
 gg <- gg + geom_tippoint(aes(color = factor(`State`)), size=2)
