@@ -22,7 +22,7 @@ library(ggtree)
 Preparation-conversion to genlight object
 ```{r, eval=TRUE, include=TRUE}
 # Extracting the genotypes
-clean=read.vcfR("~/data_and_metadata//filteredpfulvanodup.vcf.gz")
+clean=read.vcfR("~/data_and_metadata/filteredpfulvanodup.vcf.gz")
 pass.gt <- extract.gt(clean)
 gbs.pass <- vcfR2genlight(clean[is.polymorphic(clean, na.omit = T)])
 gbs.pass
