@@ -2,6 +2,7 @@
 
 #The Population Genetics and Genomics in R Primer (https://grunwaldlab.github.io/Population_Genetics_in_R/index.html) was referenced.
 #The unfiltered VCF file and metadata table are also available in the 'data' folder. 
+#Raw demultiplexed FASTQ files have been deposited into NCBI SRA (BioProject accession number PRJNA734954)
 
 library(reshape2)
 library(ggplot2) 
