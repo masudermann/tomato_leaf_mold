@@ -76,6 +76,7 @@ gg <- gg %<+% metadata
 gg <- gg + geom_tippoint(aes(color = factor(`State`)), size=2)
 gg <- gg +geom_tiplab(size=2.5, offset = 0.003)
 gg <- gg + scale_colour_manual(name="State",values = c("#1B9E77", "#D95F02", "#7570B3","#E7298A" , "#66A61E"))
+gg <- gg + geom_treescale()
 gg
 ```
 
@@ -150,11 +151,11 @@ pairwise.neifst(passgen,diploid=FALSE)
 pairwise.WCfst(passgen, diploid=FALSE)
 ```
 
-Chi-Square Goodness of Fit test
+Exact Binomial Test 
 ```{r, eval=TRUE, include=TRUE, fig.height=6}
-mat <- c(15,35)
-result <- chisq.test(mat, p = c(1/2, 1/2))
-result
+binom.test(15, 50, p = 0.5,
+           alternative = c("two.sided"),
+           conf.level = 0.95)
 ```
 
 Mapping isolates
