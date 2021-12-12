@@ -8,7 +8,6 @@ A CSV file is also needed with data on each isolate, including sample names, loc
 ```{r, eval=TRUE, include=FALSE}
 library(devtools)
 library(vcfR)
-library(poppr)
 library(ape)
 library(ggplot2)
 library(RColorBrewer)
